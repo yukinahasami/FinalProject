@@ -22,14 +22,14 @@ public class SQLHelper {
     *@param String endingDate
     *@param String country
     */
-    public static void AccumulatedData(int mode, String country,String startingDate,String endingDate){
+    public static int AccumulatedData(int mode, String country,String startingDate,String endingDate){
        
         //create instance variable
         String className = null;
         String url=null;
         String user = null;
         String password = null;
-
+        int total = 0;
         
         try
         {
@@ -37,17 +37,17 @@ public class SQLHelper {
             InputStream in = null;
             ResourceBundle newResources;
 
-            in = ClassLoader.getSystemResourceAsStream("db.properties");
+            //in = ClassLoader.getSystemResourceAsStream("db.properties");
 
-            resources = new PropertyResourceBundle(in);
+            //resources = new PropertyResourceBundle(in);
 
-            in.close();
+            //in.close();
 
-            className = resources.getString("jdbc.driver");
-            url = resources.getString("jdbc.url");
+            className = "org.apache.derby.jdbc.ClientDriver";//resources.getString("jdbc.driver");
+            url = "jdbc:derby://localhost:1527/CovidDatabase";//resources.getString("jdbc.url");
             System.out.println(url);
-            user = resources.getString("jdbc.user");
-            password = resources.getString("jdbc.password");
+            user = "APP";//resources.getString("jdbc.user");
+            password = "APP";//resources.getString("jdbc.password");
         }
         catch (Exception exp)
         {
@@ -66,6 +66,7 @@ public class SQLHelper {
         
         try
         {
+            
             Connection con = DriverManager.getConnection(url,user,password);
                  Statement stmt = con.createStatement();  
             switch(mode){
@@ -76,7 +77,7 @@ public class SQLHelper {
                     if(result1.next()){
                    
                         System.out.println(result1.getInt(1));
-           
+                        total = result1.getInt(1);
                     }
                     else{
                         System.out.print("Please input correct country name");
@@ -90,7 +91,7 @@ public class SQLHelper {
                     if(result2.next()){
                    
                         System.out.println(result2.getInt(1));
-           
+                        total = result2.getInt(1);
                     }
                     else{
                         
@@ -98,14 +99,14 @@ public class SQLHelper {
                     }
                     break;
                     
-                    case 3:
-                    ResultSet result3 = stmt.executeQuery("Select sum(CONFIRMED) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
+                case 3:
+                    ResultSet result3 = stmt.executeQuery("Select sum(DEATHS) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
                     + country + "'and  DATE >= '" + startingDate + "' and Date <= '" + endingDate + "'"); 
            
                     if(result3.next()){
                    
                         System.out.println(result3.getInt(1));
-           
+                        total = result3.getInt(1);
                     }
                     else{
                         System.out.print("Please input correct country name");
@@ -118,7 +119,7 @@ public class SQLHelper {
             catch (SQLException e) {
             System.out.println(e);
         }
-            
+            return total;
    
         }
 }
