@@ -22,14 +22,14 @@ public class SQLHelper {
     *@param String endingDate
     *@param String country
     */
-    public static int AccumulatedData(int mode, String country,String startingDate,String endingDate){
+    public static String AccumulatedData(int mode, String country,String startingDate,String endingDate){
        
         //create instance variable
         String className = null;
         String url=null;
         String user = null;
         String password = null;
-        int total = 0;
+        String total = "";
         
         try
         {
@@ -77,7 +77,7 @@ public class SQLHelper {
                     if(result1.next()){
                    
                         System.out.println(result1.getInt(1));
-                        total = result1.getInt(1);
+                        total = result1.getString(1);
                     }
                     else{
                         System.out.print("Please input correct country name");
@@ -91,7 +91,7 @@ public class SQLHelper {
                     if(result2.next()){
                    
                         System.out.println(result2.getInt(1));
-                        total = result2.getInt(1);
+                        total = result2.getString(1);
                     }
                     else{
                         
@@ -106,7 +106,7 @@ public class SQLHelper {
                     if(result3.next()){
                    
                         System.out.println(result3.getInt(1));
-                        total = result3.getInt(1);
+                        total = result3.getString(1);
                     }
                     else{
                         System.out.print("Please input correct country name");
