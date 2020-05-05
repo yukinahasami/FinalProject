@@ -55,15 +55,15 @@ public class CovidServlet2 extends HttpServlet {
                     endDate = "1/31/2020";
                     break;
                 case 2:
-                    startDate = "2/01/2020";
+                    startDate = "2/1/2020";
                     endDate = "2/29/2020";
                     break;
                 case 3:
-                    startDate = "3/01/2020";
+                    startDate = "3/1/2020";
                     endDate = "3/31/2020";
                     break;
                 case 4:
-                    startDate = "4/01/2020";
+                    startDate = "4/1/2020";
                     endDate = "4/30/2020";
                     break;
             }
