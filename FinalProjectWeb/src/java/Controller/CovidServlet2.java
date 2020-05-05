@@ -34,15 +34,22 @@ public class CovidServlet2 extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
+            
+            
+            //getting all of the user chosen values from the form
+            //choice is which option they choose
+            //months is which month they want data for
+            //country is which country they choose
+            //startdate and end date is for the months for use with the SQL class
             int choice = Integer.parseInt(request.getParameter("choice"));
             String choiceStr = request.getParameter("choice");
             int months = Integer.parseInt(request.getParameter("months"));
-            String monthsStr = request.getParameter("choice");
+            String monthsStr = request.getParameter("months");
             String country = request.getParameter("country");
             String startDate = "";
             String endDate = "";
             
-            switch (months){
+            switch (months){//setting dates depending on which month they want
                 case 1:
                     startDate = "1/22/2020";
                     endDate = "1/31/2020";
@@ -63,22 +70,19 @@ public class CovidServlet2 extends HttpServlet {
             String results = "";
             
             
+            //calling the accumulated data method using their choice
+            //the country and the dates for the month they want
             results = SQLHelper.AccumulatedData(choice, country, startDate, endDate);
-            System.out.println(results);
             
             
-            
-            
-            
-            System.out.println(choice);
-            
+            //setting attributes for use with the jsp page
             request.setAttribute("results", results);
             request.setAttribute("choice", choiceStr);
             request.setAttribute("months", monthsStr);
             request.setAttribute("country", country);
             
             
-            String url = "/results.jsp";
+            String url = "/results.jsp";//sends the user to the results.jsp page
             
         
         
