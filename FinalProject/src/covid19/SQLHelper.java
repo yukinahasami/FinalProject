@@ -1,7 +1,8 @@
+
 /**
  * CMPSC 221 Exercise *****#
  * SQLHelper.java
- * Purpose: Create a class to calculate the data we need to display main page.
+ * Purpose: ****
  * 
  * @author Yuxin Deng
  */
@@ -31,7 +32,9 @@ public class SQLHelper {
         String url=null;
         String user = null;
         String password = null;
-        String total = "";
+        
+        int total = 0;
+        String totalStr = "";
         
         try
         {
@@ -71,40 +74,35 @@ public class SQLHelper {
             
             Connection con = DriverManager.getConnection(url,user,password);
                  Statement stmt = con.createStatement();  
-                 
+                 Statement stmt2 = con.createStatement();
             switch(mode){
-                
-                case 1: // Calculate Confiremed population during the selected period.
-                    ResultSet result1 = stmt.executeQuery("Select CONFIRMED "
-                            + "from CORONAVIRUSCOUNTRIES where country = '"
-                            +country + "' and Date = '"+ endingDate+ "';"); 
+                case 1:// Calculate Confiremed population during the selected period.
+                    ResultSet result1 = stmt.executeQuery("Select sum(CONFIRMED) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
+                    + country + "'and  DATE = '" + endingDate + "'"); 
+                    ResultSet result2 = stmt2.executeQuery("Select sum(CONFIRMED) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
+                    + country + "'and  DATE = '" + startingDate + "'"); 
+                    
+                    
            
-                    ResultSet result2 = stmt.executeQuery("Select CONFIRMED "
-                            + "from CORONAVIRUSCOUNTRIES where country = '"
-                            +country + "' and Date = '"+ startingDate+ "';"); 
-                    
-                    if(result1.next()&& result2.next()){
-            
-                        total = Integer.toString(result1.getInt(1) - result2.getInt(1));
+                    if(result1.next() && result2.next()){
+                       
                         
+                        total = Integer.parseInt(result1.getString(1)) - Integer.parseInt(result2.getString(1));
                     }
                     else{
                         System.out.print("Please input correct country name");
                     }
                     break;
                     
-                case 2: // Calculate RECOVERED population during the selected period.
-                   ResultSet result3 = stmt.executeQuery("Select RECOVERED "
-                            + "from CORONAVIRUSCOUNTRIES where country = '"
-                            +country + "' and Date = '"+ endingDate+ "';"); 
-                    
-                   ResultSet result4 = stmt.executeQuery("Select RECOVERED "
-                            + "from CORONAVIRUSCOUNTRIES where country = '"
-                            +country + "' and Date = '"+ startingDate+ "';"); 
-                    
-                    if(result3.next()&& result4.next()){
-                   
-                        total = Integer.toString(result3.getInt(1)- result4.getInt(1));
+                case 2:
+                    ResultSet result3 = stmt.executeQuery("Select sum(RECOVERED) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
+                    + country + "'and  DATE = '" + endingDate + "'"); 
+                    ResultSet result4 = stmt2.executeQuery("Select sum(RECOVERED) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
+                    + country + "'and  DATE = '" + startingDate + "'"); 
+           
+                    if(result3.next() && result4.next()){
+                        
+                        total = result3.getInt(1) - result4.getInt(1);
                     }
                     else{
                         
@@ -112,30 +110,33 @@ public class SQLHelper {
                     }
                     break;
                     
-                case 3: // Calculate Deaths population during the selected period.
-                    ResultSet result5 = stmt.executeQuery("Select DEATHS "
-                            + "from CORONAVIRUSCOUNTRIES where country = '"
-                            +country + "' and Date = '"+ endingDate+ "';"); 
-                    ResultSet result6 = stmt.executeQuery("Select DEATHS "
-                            + "from CORONAVIRUSCOUNTRIES where country = '"
-                            +country + "' and Date = '"+ startingDate+ "';"); 
+                case 3:
+                    ResultSet result5 = stmt.executeQuery("Select sum(DEATHS) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
+                    + country + "'and  DATE = '" + endingDate + "'"); 
+                    ResultSet result6 = stmt2.executeQuery("Select sum(DEATHS) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
+                    + country + "'and  DATE = '" + startingDate + "'"); 
            
                     if(result5.next() && result6.next()){
-                  
-                        total = Integer.toString(result5.getInt(1) - result6.getInt(1));
+                   
+                        total = result5.getInt(1) - result6.getInt(1);
                     }
                     else{
                         System.out.print("Please input correct country name");
                     }
                     break;
             }
-            con.close();   
-                
+              
+               con.close(); 
         }
+         
+        
             catch (SQLException e) {
             System.out.println(e);
         }
-            return total;
+            
+            totalStr = Integer.toString(total);
+        
+            return totalStr;
    
         }
 }
@@ -152,5 +153,4 @@ expected use cases
 2 - recovered - country - month
 3 - deaths - country - month
 4 - confirmed - state - month
-
 */
