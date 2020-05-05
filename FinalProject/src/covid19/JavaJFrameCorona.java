@@ -21,7 +21,7 @@ public class JavaJFrameCorona extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton1);
         buttonGroup1.add(jRadioButton2);
         buttonGroup1.add(jRadioButton3);
-        JComboBox months = new JComboBox();
+        
         jComboBox1.setVisible(false);
         jComboBox2.setVisible(false);
     }
@@ -39,7 +39,6 @@ public class JavaJFrameCorona extends javax.swing.JFrame {
         buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
@@ -60,8 +59,6 @@ public class JavaJFrameCorona extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jButton2.setLabel("Reset");
 
         jRadioButton1.setActionCommand("Comfirmed");
         jRadioButton1.setLabel("Comfirmed by Country");
@@ -126,8 +123,6 @@ public class JavaJFrameCorona extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(4, 4, 4))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -168,9 +163,7 @@ public class JavaJFrameCorona extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -318,7 +311,6 @@ public class JavaJFrameCorona extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
