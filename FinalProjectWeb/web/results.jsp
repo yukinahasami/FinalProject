@@ -14,6 +14,7 @@
     <body>
         <h1></h1>
         <%
+            //getting the results and choices from the servlet
             String results = (String) request.getAttribute("results");
             String choice = (String) request.getAttribute("choice");
             String months = (String) request.getAttribute("months");
@@ -25,6 +26,8 @@
             String choicePrint = "";
             String monthName = "";
             
+            
+            //switch statements for use with printing
             switch (choiceInt){
                 case 1:
                     choicePrint = " confirmed cases.";
@@ -55,8 +58,9 @@
             }
             
             
-            
-            out.print("In "+ country + " during the month of " + monthName + " there were " + results + choicePrint);
+            //printing out their choices with the results of their query
+            out.print("In "+ country + " during the month of " + monthName 
+                    + " there were " + results + choicePrint);
             
             
             
@@ -64,5 +68,6 @@
 
             %>
         
+            
     </body>
 </html>
