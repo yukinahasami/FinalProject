@@ -1,9 +1,10 @@
 
 /**
- * CMPSC 221 Exercise *****#
+ * CMPSC 221 Final Project#
  * SQLHelper.java
- * Purpose: ****
- * 
+ * Purpose: The SQL Helper is working on calculating the confirmed, 
+ * recovered, and deaths population during a selected period. 
+ * Also, it will connect to the database and return data.
  * @author Yuxin Deng
  */
 package covid19;
