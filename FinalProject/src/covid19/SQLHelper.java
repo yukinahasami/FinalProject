@@ -56,7 +56,7 @@ public class SQLHelper {
         }
         catch (Exception exp)
         {
-            total = ("Couldn't load resources." + exp);
+            System.out.println("Couldn't load resources." + exp);
             System.exit(-1);
         }
         
@@ -66,7 +66,7 @@ public class SQLHelper {
         }
         catch (Exception e) 
         {
-            total = ("Failed to load  driver.");
+            totalStr = ("Failed to load  driver.");
         }
         
         try
@@ -90,7 +90,7 @@ public class SQLHelper {
                         total = Integer.parseInt(result1.getString(1)) - Integer.parseInt(result2.getString(1));
                     }
                     else{
-                        total = ("Please input correct country name");
+                        totalStr = ("Please input correct country name");
                     }
                     break;
                     
@@ -106,7 +106,7 @@ public class SQLHelper {
                     }
                     else{
                         
-                        total = ("Please input correct country name");
+                        totalStr = ("Please input correct country name");
                     }
                     break;
                     
