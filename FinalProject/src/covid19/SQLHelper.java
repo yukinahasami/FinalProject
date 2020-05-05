@@ -1,7 +1,7 @@
 /**
  * CMPSC 221 Exercise *****#
  * SQLHelper.java
- * Purpose: ****
+ * Purpose: Create a class to calculate the data we need to display main page.
  * 
  * @author Yuxin Deng
  */
@@ -16,11 +16,13 @@ import java.util.*;
 public class SQLHelper {
     
     /*
-    *Calculate accumulative data in a country
-    *@param String startingDate
+    *Calculate accumulative data in a country. 
+    *There are three switch cases for Deaths, Recovered, and Confiremed
     *@param int mode
+    *@param String startingDate
     *@param String endingDate
     *@param String country
+    *@return String return
     */
     public static String AccumulatedData(int mode, String country,String startingDate,String endingDate){
        
@@ -69,29 +71,40 @@ public class SQLHelper {
             
             Connection con = DriverManager.getConnection(url,user,password);
                  Statement stmt = con.createStatement();  
+                 
             switch(mode){
-                case 1:
-                    ResultSet result1 = stmt.executeQuery("Select sum(CONFIRMED) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
-                    + country + "'and  DATE >= '" + startingDate + "' and Date <= '" + endingDate + "'"); 
+                
+                case 1: // Calculate Confiremed population during the selected period.
+                    ResultSet result1 = stmt.executeQuery("Select CONFIRMED "
+                            + "from CORONAVIRUSCOUNTRIES where country = '"
+                            +country + "' and Date = '"+ endingDate+ "';"); 
            
-                    if(result1.next()){
-                   
-                        System.out.println(result1.getInt(1));
-                        total = result1.getString(1);
+                    ResultSet result2 = stmt.executeQuery("Select CONFIRMED "
+                            + "from CORONAVIRUSCOUNTRIES where country = '"
+                            +country + "' and Date = '"+ startingDate+ "';"); 
+                    
+                    if(result1.next()&& result2.next()){
+            
+                        total = Integer.toString(result1.getInt(1) - result2.getInt(1));
+                        
                     }
                     else{
                         System.out.print("Please input correct country name");
                     }
                     break;
                     
-                case 2:
-                    ResultSet result2 = stmt.executeQuery("Select sum(RECOVERED) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
-                    + country + "'and  DATE >= '" + startingDate + "' and Date <= '" + endingDate + "'"); 
-           
-                    if(result2.next()){
+                case 2: // Calculate RECOVERED population during the selected period.
+                   ResultSet result3 = stmt.executeQuery("Select RECOVERED "
+                            + "from CORONAVIRUSCOUNTRIES where country = '"
+                            +country + "' and Date = '"+ endingDate+ "';"); 
+                    
+                   ResultSet result4 = stmt.executeQuery("Select RECOVERED "
+                            + "from CORONAVIRUSCOUNTRIES where country = '"
+                            +country + "' and Date = '"+ startingDate+ "';"); 
+                    
+                    if(result3.next()&& result4.next()){
                    
-                        System.out.println(result2.getInt(1));
-                        total = result2.getString(1);
+                        total = Integer.toString(result3.getInt(1)- result4.getInt(1));
                     }
                     else{
                         
@@ -99,14 +112,17 @@ public class SQLHelper {
                     }
                     break;
                     
-                case 3:
-                    ResultSet result3 = stmt.executeQuery("Select sum(DEATHS) from CORONAVIRUSCOUNTRIES where COUNTRY ='" 
-                    + country + "'and  DATE >= '" + startingDate + "' and Date <= '" + endingDate + "'"); 
+                case 3: // Calculate Deaths population during the selected period.
+                    ResultSet result5 = stmt.executeQuery("Select DEATHS "
+                            + "from CORONAVIRUSCOUNTRIES where country = '"
+                            +country + "' and Date = '"+ endingDate+ "';"); 
+                    ResultSet result6 = stmt.executeQuery("Select DEATHS "
+                            + "from CORONAVIRUSCOUNTRIES where country = '"
+                            +country + "' and Date = '"+ startingDate+ "';"); 
            
-                    if(result3.next()){
-                   
-                        System.out.println(result3.getInt(1));
-                        total = result3.getString(1);
+                    if(result5.next() && result6.next()){
+                  
+                        total = Integer.toString(result5.getInt(1) - result6.getInt(1));
                     }
                     else{
                         System.out.print("Please input correct country name");
